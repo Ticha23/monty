@@ -1,11 +1,11 @@
 #include "monty.h"
 
 /**
- * is_digit - iterates each character of string to check of isdigit
+ * is_number - iterates each character of string to check of isdigit
  * @n: integer
  * Return: 0 if is number, else -1 if not
  */
-int is_digit(const char *n)
+int is_number(const char *n)
 {
 	int i = 0;
 
@@ -28,17 +28,17 @@ void push(stack_t **h, unsigned int line_number, const char *n)
 {
 	if (!h)
 		return;
-	if (is_digit(n) == -1)
+	if (is_number(n) == -1)
 	{
 		printf("L%u: usage: push integer\n", line_number);
-		free_me(h);
+		free_dlist(h);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		if (end_note(h, atoi(n)) == -1)
+		if (add_end_node(h, atoi(n)) == -1)
 		{
-			free_me(h);
+			free_dlist(h);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -53,9 +53,9 @@ void pop(stack_t **h, unsigned int line_number)
 	if (h == NULL || *h == NULL)
 	{
 		printf("L%u: can't pop an empty stack\n", line_number);
-		free_me(h);
+		free_dlist(h);
 		exit(EXIT_FAILURE);
 	}
 	else
-		rm_notes(h);
+		delete_end_node(h);
 }

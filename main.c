@@ -54,13 +54,13 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			if (chilling(token) != 0)
+			if (get_op_func(token) != 0)
 			{
-				chilling(token)(&h, line);
+				get_op_func(token)(&h, line);
 			}
 			else
 			{
-				free_me(&h);
+				free_dlist(&h);
 				printf("L%d: unknown instruction %s\n", line, token);
 				exit(EXIT_FAILURE);
 			}
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 		line++;
 		token = strtok(NULL, "\n\t\a\r ;:");
 	}
-	free_me(&h); free(buffer);
+	free_dlist(&h); free(buffer);
 	close(fd);
 	return (0);
 }
